@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
-import web.repository.UserRepository;
+import web.repository.UserDao;
 
 import java.util.List;
 
@@ -12,35 +12,35 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImp implements UserService {
 
-    private final UserRepository userRepository;
+    private final UserDao userDao;
 
     @Transactional
     @Override
     public void add(User user) {
-        userRepository.save(user);
+        userDao.add(user);
     }
 
     @Transactional
     @Override
     public User getUserById(Integer id) {
-        return userRepository.getOne(id);
+        return userDao.getUserById(id);
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<User> listUsers() {
-        return userRepository.findAll();
+        return userDao.listUsers();
     }
 
     @Transactional
     @Override
     public void updateUser(User user) {
-        userRepository.saveAndFlush(user);
+        userDao.updateUser(user);
     }
 
     @Transactional
     @Override
     public void deleteUser(Integer id) {
-        userRepository.deleteById(id);
+        userDao.deleteUser(id);
     }
 }
